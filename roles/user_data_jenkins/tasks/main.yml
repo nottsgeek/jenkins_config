@@ -26,18 +26,18 @@
     name: jenkins
 
 - name: shell command
-  shell: rm -rf /var/lib/jenkins/*
+  shell: /bin/rm -rf /var/lib/jenkins/*
 
 - name: Configure jenkins repo
   get_url:
     url: https://s3-us-west-2.amazonaws.com/jenkins-newer/jenkins.tar
-    dest: /var/lib/jenkins/
+    dest: /var/lib/jenkins/jenkins.tar
 
 - name: shell command
-  shell: /usr/bin/tar -xf jenkins.tar -C /var/lib/jenkins/
+  shell: /usr/bin/tar -xf /var/lib/jenkins/jenkins.tar -C /var/lib/jenkins/
 
 - name: Make sure Jenkins service is running
   systemd:
-    state: started
+    state: restarted
     name: jenkins
     enabled: yes
